@@ -1,0 +1,6 @@
+[package]
+name = "buckler"
+version = "0.1.0"
+authors = ["akakou <s16003@tokyo.kosen-ac.jp>"]
+
+[dependencies]
