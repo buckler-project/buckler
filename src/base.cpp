@@ -17,15 +17,47 @@ public:
 
 class Signature {
 public:
+    std::string path;
     std::vector<unsigned char> buffer;
+    
+    Signature(const std::string _path) {
+        path = _path;
+    }
+
+    bool Scan() {
+        return true;
+    }
 };
 
 
 class Scanner {
 public:
-    Scanner() {}
-    bool Scan() {
+    std::string path;
+    Scanner(const std::string _path) {
+        path = _path;
+    }
+    bool Scan(Signature signature) {
         return true;
+    }
+};
+
+
+class SignatureRepository {
+    std::vector<Signature> signatures;
+    
+    void Build(const std::string path) {
+        Signature signature = Signature(path);
+        signatures.push_back(signature);
+    }
+};
+
+
+class ScannerRepository {
+    std::vector<Scanner> scanners;
+
+    void Build(const std::string path) {
+        Scanner scanner = Scanner(path);
+        scanners.push_back(scanner);
     }
 };
 
@@ -35,12 +67,15 @@ public:
     Target target;
     Result result;
 
-    std::vector<Signature> signatures;
-    std::vector<Scanner> scanners;
+    SignatureRepository signatures;
+    ScannerRepository scanners;
 
     Base(Target _target) {
         target = _target;
         result = Result();
+
+        signatures = SignatureRepository();
+        scanners = ScannerRepository();
     }
 
     Result Scan() {
@@ -50,6 +85,7 @@ public:
 
 
 int main() {
+    std::string path("hogehoge");
     Target target = Target();
     Base base = Base(target);
     Result result = base.Scan();
