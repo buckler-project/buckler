@@ -42,22 +42,55 @@ public:
 };
 
 
-class SignatureRepository {
-    std::vector<Signature> signatures;
+template <typename T>
+class ObjectIterator {
+public:
+    std::vector<T> objects;
+    typename std::vector<T>::iterator itr;
+    bool has_finished = true;
+
+    void Start() {
+        itr = objects.begin();
+        has_finished = false;
+    }
     
+    T End() {
+        return (T)0;
+    }
+
+    Signature Next() {
+        if (has_finished) {
+            return End();
+        }
+
+        if (itr == objects.end()) {
+            has_finished = true;
+        }
+
+        return *itr;
+    }
+
+    void Add(T object) {
+        objects.push_back(object);
+    }
+
+};
+
+
+class SignatureController : ObjectIterator<Signature> {
+public:
     void Build(const std::string path) {
         Signature signature = Signature(path);
-        signatures.push_back(signature);
+        Add(signature);
     }
 };
 
 
-class ScannerRepository {
-    std::vector<Scanner> scanners;
-
+class ScannerController : ObjectIterator<Scanner> {
+public:
     void Build(const std::string path) {
         Scanner scanner = Scanner(path);
-        scanners.push_back(scanner);
+        Add(scanner);
     }
 };
 
@@ -67,15 +100,15 @@ public:
     Target target;
     Result result;
 
-    SignatureRepository signatures;
-    ScannerRepository scanners;
+    SignatureController signatures;
+    ScannerController scanners;
 
     Buckler(Target _target) {
         target = _target;
         result = Result();
 
-        signatures = SignatureRepository();
-        scanners = ScannerRepository();
+        signatures = SignatureController();
+        scanners = ScannerController();
     }
 
     Result Scan() {
