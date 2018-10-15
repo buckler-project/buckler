@@ -45,7 +45,7 @@ public:
             handler = NULL;
         }
 
-        int (*scan)(void) = (int (*)(void))dlsym(handler, "scan");
+        int (*scan)(char *, size_t) = (int (*)(char *, size_t))dlsym(handler, "scan");
     
         char *error_msg = dlerror();
         if (error_msg) {
@@ -55,9 +55,11 @@ public:
             handler = NULL;
         }
 
-        int a = (*scan)();
+        char hoge[] = "hello world";
+        char *fuga = hoge;
+        int fuga = (*scan)(hoge, 11);
         
-        std::cout << a << std::endl;
+        std::cout << fuga << std::endl;
 
         dlclose(handler);
         return true;
