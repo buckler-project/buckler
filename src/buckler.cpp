@@ -62,7 +62,7 @@ class ScannerRepository {
 };
 
 
-class Base {
+class Buckler {
 public:
     Target target;
     Result result;
@@ -70,7 +70,7 @@ public:
     SignatureRepository signatures;
     ScannerRepository scanners;
 
-    Base(Target _target) {
+    Buckler(Target _target) {
         target = _target;
         result = Result();
 
@@ -87,6 +87,6 @@ public:
 int main() {
     std::string path("hogehoge");
     Target target = Target();
-    Base base = Base(target);
-    Result result = base.Scan();
+    Buckler buckler = Buckler(target);
+    Result result = buckler.Scan();
 }
