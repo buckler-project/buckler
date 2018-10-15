@@ -1,9 +1,14 @@
 #include <stdio.h>
 
-void scan() {
-    printf("hello world");   
+extern "C" {
+    int scan(void) {
+        puts("hello world");
+        return 0xdeadbeef;
+    }
 }
 
 int main(void) {
     scan();
 }
+
+

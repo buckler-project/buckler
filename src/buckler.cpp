@@ -45,16 +45,21 @@ public:
             handler = NULL;
         }
 
-        void (*scan)(void) = (void (*)(void))dlsym(handler, "main");
+        int (*scan)(void) = (int (*)(void))dlsym(handler, "scan");
     
         char *error_msg = dlerror();
         if (error_msg) {
             std::cerr << error_msg << std::endl;
+            
+            dlclose(handler);
             handler = NULL;
         }
 
-        (*scan)();
-        //dlclose(handler);
+        int a = (*scan)();
+        
+        std::cout << a << std::endl;
+
+        dlclose(handler);
         return true;
     }
 };
@@ -137,6 +142,6 @@ public:
 
 int main() {
     Signature signature = Signature(std::string("hoge"));
-    Scanner scanner = Scanner(std::string("./libfunc.so"));
+    Scanner scanner = Scanner(std::string("./tests/libfunc.so"));
     scanner.Scan(signature);
 }
