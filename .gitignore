@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# GDB
+peda*
+
+# Vscode
+.vscode/

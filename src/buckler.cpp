@@ -1,6 +1,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <dlfcn.h> 
+
 
 
 class Target {
@@ -23,20 +25,36 @@ public:
     Signature(const std::string _path) {
         path = _path;
     }
-
-    bool Scan() {
-        return true;
-    }
 };
 
 
 class Scanner {
 public:
     std::string path;
+    void *handler = NULL;
+
     Scanner(const std::string _path) {
         path = _path;
     }
+
     bool Scan(Signature signature) {
+        handler = dlopen(path.c_str(), RTLD_LAZY);
+
+        if (!handler) {
+            std::cerr << dlerror() << std::endl;
+            handler = NULL;
+        }
+
+        void (*scan)(void) = (void (*)(void))dlsym(handler, "main");
+    
+        char *error_msg = dlerror();
+        if (error_msg) {
+            std::cerr << error_msg << std::endl;
+            handler = NULL;
+        }
+
+        (*scan)();
+        //dlclose(handler);
         return true;
     }
 };
@@ -118,8 +136,7 @@ public:
 
 
 int main() {
-    std::string path("hogehoge");
-    Target target = Target();
-    Buckler buckler = Buckler(target);
-    Result result = buckler.Scan();
+    Signature signature = Signature(std::string("hoge"));
+    Scanner scanner = Scanner(std::string("./libfunc.so"));
+    scanner.Scan(signature);
 }
