@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+
 extern "C" {
     int scan(char *data, size_t size) {
         for(size_t i = 0; i < size; i ++) {
