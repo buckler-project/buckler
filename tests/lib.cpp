@@ -3,21 +3,16 @@
 
 
 extern "C" {
-    int scan(char *data, size_t size) {
+    bool scan(unsigned char *data, size_t size) {
+        printf("\nsize: %d\n", size);
+        printf("---data---\n");
+
         for(size_t i = 0; i < size; i ++) {
-            putchar(*data);
+            printf("%c: %d\n", *data, *data);
             data += 1;
         }
         printf("\n");
-        return 0xdeadbeef;
+        return true;
     }
 }
-
-int main(void) {
-    char hoge[] = "hello world";
-    char *fuga = hoge;
-
-    scan(fuga, strlen(hoge));
-}
-
 

@@ -63,7 +63,7 @@ public:
             handler = NULL;
         }
 
-        int (*scan)(char *, size_t) = (int (*)(char *, size_t))dlsym(handler, "scan");
+        int (*scan)(unsigned char *, size_t) = (int (*)(unsigned char *, size_t))dlsym(handler, "scan");
     
         char *error_msg = dlerror();
         if (error_msg) {
@@ -73,14 +73,13 @@ public:
             handler = NULL;
         }
 
-        char hoge[] = "hello world";
-        //signature.front()
-        int piyo = (*scan)(hoge, 11);
+        unsigned char *ptr = signature.buffer.data();
+        size_t size = signature.buffer.size();
+        bool result = (*scan)(ptr, size);
         
-        std::cout << piyo << std::endl;
-
         dlclose(handler);
-        return true;
+
+        return result;
     }
 };
 
@@ -162,11 +161,7 @@ public:
 
 int main() {
     Signature signature = Signature(std::string("./tests/hoge.txt"));
-
-    for(char data : signature.buffer) {
-        printf("%x:%c\n", data, data);
-    }
-
     Scanner scanner = Scanner(std::string("./tests/libfunc.so"));
-    scanner.Scan(signature);
+    bool hoge = scanner.Scan(signature);
+    //std::cout << hoge << std::endl;
 }
