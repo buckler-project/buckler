@@ -1,8 +1,10 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <dlfcn.h> 
+#include <fstream>
 
+#include <dlfcn.h> 
+#include <stdio.h>
 
 
 class Target {
@@ -24,6 +26,22 @@ public:
     
     Signature(const std::string _path) {
         path = _path;
+        std::fstream fs;
+
+        fs.open(path, std::ios::in | std::ios::binary);
+        char data;
+
+        if (fs.fail()) {
+            std::cerr << "failed to open file\n" << std::endl;
+            return;
+        }
+
+        while(!fs.eof()){
+            fs.read(&data, sizeof(unsigned char));
+            buffer.push_back(data);
+        }
+
+        fs.close();
     }
 };
 
@@ -56,10 +74,10 @@ public:
         }
 
         char hoge[] = "hello world";
-        char *fuga = hoge;
-        int fuga = (*scan)(hoge, 11);
+        //signature.front()
+        int piyo = (*scan)(hoge, 11);
         
-        std::cout << fuga << std::endl;
+        std::cout << piyo << std::endl;
 
         dlclose(handler);
         return true;
@@ -143,7 +161,12 @@ public:
 
 
 int main() {
-    Signature signature = Signature(std::string("hoge"));
+    Signature signature = Signature(std::string("./tests/hoge.txt"));
+
+    for(char data : signature.buffer) {
+        printf("%x:%c\n", data, data);
+    }
+
     Scanner scanner = Scanner(std::string("./tests/libfunc.so"));
     scanner.Scan(signature);
 }
