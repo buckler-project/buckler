@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "base.cc"
+#include "utils.cc"
 
 #pragma once
 
@@ -33,12 +33,15 @@ public:
 };
 
 
-class SignatureController : IteratableObject<Signature> {
+class SignatureRepository : public IteratableObject<Signature>{};
+
+class SignatureController {
 public:
-    void Build(const std::string path) {
+    SignatureRepository repository = SignatureRepository();
+    
+    void AddFromPath(const std::string path) {
         Signature signature = Signature(path);
-        Add(signature);
+        repository.Add(signature);
     }
 };
-
 

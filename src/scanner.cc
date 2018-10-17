@@ -47,10 +47,19 @@ public:
 };
 
 
+class ScannerRepository : public IteratableObject<Scanner>{};
+
+
 class ScannerController : IteratableObject<Scanner> {
 public:
-    void Build(const std::string path) {
+    ScannerRepository repository = ScannerRepository();
+
+    void AddFromPath(const std::string path) {
         Scanner scanner = Scanner(path);
-        Add(scanner);
+        repository.Add(scanner);
+    }
+
+    void AddFromFiles(const std::string path) {
+        //
     }
 };
