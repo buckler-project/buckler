@@ -4,7 +4,7 @@
 
 extern "C" {
     bool scan(unsigned char *data, size_t size) {
-        printf("\nsize: %d\n", size);
+        printf("\nsize: %d\n", (int)size);
         printf("---data---\n");
 
         for(size_t i = 0; i < size; i ++) {

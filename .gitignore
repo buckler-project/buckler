@@ -34,5 +34,8 @@
 # GDB
 peda*
 
-# Vscode
+# vscode
 .vscode/
+
+# Ignore Folders
+bin/*

@@ -160,8 +160,7 @@ public:
 
 
 int main() {
-    Signature signature = Signature(std::string("./tests/hoge.txt"));
-    Scanner scanner = Scanner(std::string("./tests/libfunc.so"));
-    bool hoge = scanner.Scan(signature);
-    //std::cout << hoge << std::endl;
+    Signature signature = Signature(std::string("./tests/data/hoge.txt"));
+    Scanner scanner = Scanner(std::string("./tests/lib/lib.so"));
+    scanner.Scan(signature);
 }
