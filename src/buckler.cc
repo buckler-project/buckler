@@ -85,7 +85,7 @@ public:
 
 
 template <typename T>
-class ObjectIterator {
+class IteratableObject {
 public:
     std::vector<T> objects;
     typename std::vector<T>::iterator itr;
@@ -119,7 +119,7 @@ public:
 };
 
 
-class SignatureController : ObjectIterator<Signature> {
+class SignatureController : IteratableObject<Signature> {
 public:
     void Build(const std::string path) {
         Signature signature = Signature(path);
@@ -128,7 +128,7 @@ public:
 };
 
 
-class ScannerController : ObjectIterator<Scanner> {
+class ScannerController : IteratableObject<Scanner> {
 public:
     void Build(const std::string path) {
         Scanner scanner = Scanner(path);
