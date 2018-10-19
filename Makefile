@@ -20,3 +20,6 @@ run: $(TARGET)
 
 clean:
 	rm -f $(TARGET)
+
+rebuild:
+	make clean && make build

@@ -28,7 +28,11 @@ public:
 
 
 int main() {
+    ScannerController scanner = ScannerController();
+
+    /*
     Signature signature = Signature(std::string("./tests/data/hoge.txt"));
     Scanner scanner = Scanner(std::string("./tests/lib/lib.so"));
     scanner.Scan(signature);
+    */
 }

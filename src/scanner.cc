@@ -8,6 +8,8 @@
 
 #pragma once
 
+#define SCANNER_LIST "./tests/data/scanner.list"
+
 
 class Scanner {
 public:
@@ -54,12 +56,28 @@ class ScannerController : IteratableObject<Scanner> {
 public:
     ScannerRepository repository = ScannerRepository();
 
+    ScannerController() {
+        AddFromFiles(SCANNER_LIST);
+    }
+
     void AddFromPath(const std::string path) {
         Scanner scanner = Scanner(path);
         repository.Add(scanner);
     }
 
     void AddFromFiles(const std::string path) {
-        //
+        std::ifstream ifs(path);
+        std::string line;
+        
+        if (ifs.fail()) {
+            std::cerr << "failed to open file" << std::endl;
+        }
+
+        while (getline(ifs, line)) {
+            std::cout << "[" << line << "]" << std::endl;
+            AddFromPath(line);
+        }
+
+        ifs.close();
     }
 };

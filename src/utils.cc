@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 template <typename T>
 class IteratableObject {
 public:
