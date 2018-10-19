@@ -38,7 +38,7 @@ class SignatureRepository : public IteratableObject<Signature>{};
 class SignatureController {
 public:
     SignatureRepository repository = SignatureRepository();
-    
+
     void AddFromPath(const std::string path) {
         Signature signature = Signature(path);
         repository.Add(signature);

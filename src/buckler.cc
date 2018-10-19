@@ -10,15 +10,15 @@ public:
     Target target;
     Result result;
 
-    SignatureController signatures;
     ScannerController scanners;
+    SignatureController signatures;
 
     Buckler(Target _target) {
         target = _target;
         result = Result();
 
         signatures = SignatureController();
-        scanners = ScannerController();
+        scanners = ScannerController(target);
     }
 
     Result Scan() {
@@ -28,11 +28,16 @@ public:
 
 
 int main() {
-    ScannerController scanner = ScannerController();
+    Target target = Target();
+    //Buckler buckler = Buckler(target);
+    //buckler.Scan();
+
+    ScannerController controller;// = ScannerController(target);
 
     /*
     Signature signature = Signature(std::string("./tests/data/hoge.txt"));
     Scanner scanner = Scanner(std::string("./tests/lib/lib.so"));
     scanner.Scan(signature);
     */
+
 }
