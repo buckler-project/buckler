@@ -16,7 +16,7 @@ $(TEST_LIB): $(TEST_SRC)
 	$(CC) $(TEST_SRC) -o $(TEST_LIB) $(TEST_FLAGS) 
 
 run: $(TARGET)
-	$(TARGET)
+	make rebuild && $(TARGET)
 
 clean:
 	rm -f $(TARGET)

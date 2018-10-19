@@ -8,29 +8,28 @@ class IteratableObject {
 public:
     std::vector<T> objects;
     typename std::vector<T>::iterator itr;
-    bool has_finished = true;
+    bool is_continue = false;
 
     IteratableObject() {}
 
     void Start() {
         itr = objects.begin();
-        has_finished = false;
+        is_continue = true;
     }
     
-    T End() {
-        return (T)0;
-    }
-
     T Next() {
-        if (has_finished) {
-            return End();
+        if (!is_continue) {
+            itr = objects.end();
         }
 
         if (itr == objects.end()) {
-            has_finished = true;
+            is_continue = false;
         }
+        
+        typename std::vector<T>::iterator result = itr;
+        itr ++;
 
-        return *itr;
+        return *result;
     }
 
     void Add(T object) {

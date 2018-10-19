@@ -1,6 +1,7 @@
 #include "base.cc"
 #include "signature.cc"
 #include "scanner.cc"
+#include "utils.cc"
 
 #pragma once
 
@@ -28,16 +29,14 @@ public:
 
 
 int main() {
-    Target target = Target();
-    //Buckler buckler = Buckler(target);
-    //buckler.Scan();
+    IteratableObject<std::string> iterator = IteratableObject<std::string>();
+    iterator.Add(std::string("hello"));
+    iterator.Add(std::string("world"));
+    iterator.Add(std::string("!"));
 
-    ScannerController controller;// = ScannerController(target);
-
-    /*
-    Signature signature = Signature(std::string("./tests/data/hoge.txt"));
-    Scanner scanner = Scanner(std::string("./tests/lib/lib.so"));
-    scanner.Scan(signature);
-    */
-
+    iterator.Start();
+    while(iterator.is_continue) {
+        std::string msg = iterator.Next();
+        std::cout << msg << std::endl;
+    }
 }
