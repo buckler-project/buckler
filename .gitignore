@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# GDB
+peda*
+
+# vscode
+.vscode/
+
+# Ignore Folders
+bin/*
