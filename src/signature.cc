@@ -1,9 +1,14 @@
 #include <iostream>
 #include <fstream>
 
+#include <boost/filesystem.hpp>
+
+
 #include "utils.cc"
 
 #pragma once
+
+#define SIGNATURE_DIRECTORY "./tests/data/signature/"
 
 
 class Signature {
@@ -39,9 +44,26 @@ class SignatureController {
 public:
     SignatureRepository repository = SignatureRepository();
 
+    SignatureController() {
+        AddFromDefaultDirectory();
+    }
+
     void AddFromPath(const std::string path) {
         Signature signature = Signature(path);
         repository.Add(signature);
+    }
+
+    void AddFromDirectory(const std::string path) {
+        namespace fs = boost::filesystem;
+
+        fs::recursive_directory_iterator last;
+        for (fs::recursive_directory_iterator itr(path); itr != last; ++itr ) {
+            AddFromPath(itr -> path().string());
+        }
+    }
+
+    void AddFromDefaultDirectory() {
+        AddFromDirectory(SIGNATURE_DIRECTORY);
     }
 };
 

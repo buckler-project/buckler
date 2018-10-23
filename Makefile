@@ -1,6 +1,7 @@
 CC      = g++
 SUFFIX  = .cc
 CFLAGS  = -g -Wall -ldl
+LFLAGS  = -lboost_filesystem -lboost_system
 SOURCE  = ./src/buckler.cc
 TARGET  = ./bin/buckler
 TEST_SRC   = ./tests/src/lib.cc
@@ -10,7 +11,7 @@ TEST_FLAGS = -g -Wall --shared
 build: $(TEST_LIB) $(TARGET)
 
 $(TARGET): $(SOURCE)
-	$(CC) $(SOURCE) -o $(TARGET) $(CFLAGS)
+	$(CC) $(SOURCE) -o $(TARGET) $(CFLAGS) $(LFLAGS)
 
 $(TEST_LIB): $(TEST_SRC)
 	$(CC) $(TEST_SRC) -o $(TEST_LIB) $(TEST_FLAGS) 
