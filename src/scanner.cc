@@ -59,7 +59,6 @@ public:
 class ScannerRepository : public IteratableObject<Scanner>{};
 
 
-
 class ScannerController {
 public:
     Target target;

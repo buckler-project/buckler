@@ -23,20 +23,40 @@ public:
     }
 
     Result Scan() {
+        scanners.repository.Start();
+
+        while(scanners.repository.is_continue) {
+            Scanner scanner = scanners.repository.Next();
+            
+            signatures.repository.Start();
+            while(signatures.repository.is_continue) {
+                Signature signature = signatures.repository.Next();
+                bool tmp = scanner.Scan(signature);
+
+                if(tmp) {
+                    result.hits.emplace(signature.path, scanner.path);                    
+                }
+
+                result.is_hit |= tmp; 
+            }
+        }
+        
         return result;
     }
 };
 
 
 int main() {
-    IteratableObject<std::string> iterator = IteratableObject<std::string>();
-    iterator.Add(std::string("hello"));
-    iterator.Add(std::string("world"));
-    iterator.Add(std::string("!"));
+    unsigned char hoge[] = "hogehoge";
+    Target target = Target((unsigned char *)hoge, sizeof(hoge));
+    
+    Buckler buckler = Buckler(target);
 
-    iterator.Start();
-    while(iterator.is_continue) {
-        std::string msg = iterator.Next();
-        std::cout << msg << std::endl;
+    Result result = buckler.Scan();
+
+    for (auto const& [sig, scanner] : result.hits) {
+        std::cout << "---hit---" << std::endl; 
+        std::cout << "sig:" << sig << std::endl; 
+        std::cout << "scan:" << scanner << "\n" << std::endl; 
     }
 }
