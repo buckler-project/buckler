@@ -17,17 +17,27 @@ public:
         is_continue = true;
     }
     
-    T Next() {
+    T Next() {        
         if (!is_continue) {
-            itr = objects.end();
+            return *(objects.end());
         }
 
-        if (itr == objects.end()) {
+        if (objects.size() == 0) {
+            std::cerr 
+                << "failed to get element from vector " 
+                << "(vector has no elements)"
+                << std::endl;
+            
+            return *(objects.begin());
+        }
+
+        typename std::vector<T>::iterator result = itr;
+
+        itr ++;
+
+        if(itr == objects.end()) {
             is_continue = false;
         }
-        
-        typename std::vector<T>::iterator result = itr;
-        itr ++;
 
         return *result;
     }
