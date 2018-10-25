@@ -2,6 +2,7 @@
 #include "signature.cc"
 #include "scanner.cc"
 #include "utils.cc"
+#include "update.cc"
 
 #pragma once
 
@@ -10,11 +11,14 @@ class Buckler {
 public:
     Target target;
     Result result;
+    RepositoryUpdator repo;
 
     ScannerController scanners;
     SignatureController signatures;
 
     Buckler(Target _target) {
+        repo = RepositoryUpdator();
+
         target = _target;
         result = Result();
 
@@ -51,12 +55,5 @@ int main() {
     Target target = Target((unsigned char *)hoge, sizeof(hoge));
     
     Buckler buckler = Buckler(target);
-
-    Result result = buckler.Scan();
-
-    for (auto const& [sig, scanner] : result.hits) {
-        std::cout << "---hit---" << std::endl; 
-        std::cout << "sig:" << sig << std::endl; 
-        std::cout << "scan:" << scanner << "\n" << std::endl; 
-    }
+    buckler.repo.Update();
 }
