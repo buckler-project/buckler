@@ -1,7 +1,7 @@
 CC      = g++
 SUFFIX  = .cc
-CFLAGS  = -g -Wall -ldl
-LFLAGS  = -lboost_filesystem -lboost_system
+CFLAGS  = -g -Wall -ldl -std=c++17
+LFLAGS  = -lpthread -lboost_filesystem -lboost_system
 SOURCE  = ./src/buckler.cc
 TARGET  = ./bin/buckler
 TEST_SRC   = ./tests/src/lib.cc
@@ -17,7 +17,7 @@ $(TEST_LIB): $(TEST_SRC)
 	$(CC) $(TEST_SRC) -o $(TEST_LIB) $(TEST_FLAGS) 
 
 run: $(TARGET)
-	make rebuild && $(TARGET)
+	$(TARGET)
 
 clean:
 	rm -f $(TARGET)
