@@ -5,6 +5,7 @@
 #pragma once
 
 
+namespace Buckler {
 class Target {
 public:
     std::vector<unsigned char> buffer;
@@ -35,4 +36,4 @@ public:
        is_hit = false;
    }
 };
-
+}

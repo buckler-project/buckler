@@ -11,6 +11,7 @@
 #define SIGNATURE_DIRECTORY "./tests/data/signature/"
 
 
+namespace Buckler {
 class Signature {
 public:
     std::string path;
@@ -66,4 +67,4 @@ public:
         AddFromDirectory(SIGNATURE_DIRECTORY);
     }
 };
-
+}

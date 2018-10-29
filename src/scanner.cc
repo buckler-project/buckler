@@ -11,6 +11,7 @@
 #define SCANNER_LIST "./tests/data/scanner/scanner.list"
 
 
+namespace Buckler {
 class Scanner {
 public:
     Target target;
@@ -91,3 +92,4 @@ public:
         ifs.close();
     }
 };
+}

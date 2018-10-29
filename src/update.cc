@@ -5,6 +5,7 @@
 #define SIGNATURE_PATH "./tests/data/signature/"
 
 
+namespace Buckler {
 class RepositoryUpdator {
 private:
     std::string cmd;
@@ -21,3 +22,4 @@ public:
         child.wait();
     }
 };
+}

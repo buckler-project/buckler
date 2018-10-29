@@ -7,6 +7,7 @@
 #pragma once
 
 
+namespace Buckler {
 class Buckler {
 public:
     Target target;
@@ -48,12 +49,13 @@ public:
         return result;
     }
 };
-
+}
 
 int main() {
     unsigned char hoge[] = "hogehoge";
-    Target target = Target((unsigned char *)hoge, sizeof(hoge));
+    Buckler::Target target = Buckler::Target((unsigned char *)hoge, sizeof(hoge));
     
-    Buckler buckler = Buckler(target);
+    Buckler::Buckler buckler = Buckler::Buckler(target);
     buckler.repo.Update();
 }
+
