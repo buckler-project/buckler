@@ -1,26 +1,23 @@
 CC      = g++
-SUFFIX  = .cc
-CFLAGS  = -g -Wall -ldl -std=c++17
+CFLAGS  = -g -Wall -std=c++17 -fPIC
 LFLAGS  = -lpthread -lboost_filesystem -lboost_system
-SOURCE  = ./src/buckler.cc
-TARGET  = ./bin/buckler
-TEST_SRC   = ./tests/src/lib.cc
-TEST_LIB   = ./tests/lib/lib.so
-TEST_FLAGS = -g -Wall --shared
+SRCSFX  = .cc
+OBJSFX  = .o
+SRCDIR  = ./src
+OBJDIR  = ./obj
+SOURCES = $(wildcard $(SRCDIR)/*$(SRCSFX))
+OBJECTS = $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:$(SRCSFX)=$(OBJSFX))))
+TARGET  = ./bin/libbuckler.a
 
-build: $(TEST_LIB) $(TARGET)
 
-$(TARGET): $(SOURCE)
-	$(CC) $(SOURCE) -o $(TARGET) $(CFLAGS) $(LFLAGS)
+$(TARGET): $(OBJECTS)
+	ar r $(TARGET) $(OBJECTS) -o $(TARGET)
 
-$(TEST_LIB): $(TEST_SRC)
-	$(CC) $(TEST_SRC) -o $(TEST_LIB) $(TEST_FLAGS) 
+$(OBJDIR)/%$(OBJSFX): $(SRCDIR)/%$(SRCSFX)
+	$(CC) $(CFLAGS) $(FLAGS) -o $@ -c $<
 
-run: $(TARGET)
-	$(TARGET)
+obj_clean:
+	-rm -f $(TARGET)
 
 clean:
-	rm -f $(TARGET)
-
-rebuild:
-	make clean && make build
+	-rm -f $(TARGET) $(OBJECTS)
