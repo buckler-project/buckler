@@ -2,7 +2,7 @@
 #include <dlfcn.h> 
 
 
-namespace Buckler {
+namespace buckler {
 Scanner::Scanner() {}
 
 Scanner::Scanner(Target _target, const std::string _path) {

@@ -1,7 +1,7 @@
 #include "signature.hpp"
 
 
-namespace Buckler {
+namespace buckler {
 Signature::Signature(const std::string _path) {
     path = _path;
     std::fstream fs;

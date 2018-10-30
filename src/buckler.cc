@@ -1,7 +1,7 @@
 #include "buckler.hpp"
 
 
-namespace Buckler {
+namespace buckler {
 Buckler::Buckler(Target _target) {
     repo = RepositoryUpdator();
 

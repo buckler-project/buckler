@@ -6,7 +6,7 @@
 #include "update.hpp"
 
 
-namespace Buckler {
+namespace buckler {
 class Buckler {
 public:
     Target target;

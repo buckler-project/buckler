@@ -1,6 +1,6 @@
 #include "update.hpp"
 
-namespace Buckler {
+namespace buckler {
 
 RepositoryUpdator::RepositoryUpdator () {
     cmd = std::string("bash -c \"{}\"");

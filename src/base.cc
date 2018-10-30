@@ -1,6 +1,6 @@
 #include "base.hpp"
 
-namespace Buckler {
+namespace buckler {
 
 Target::Target() {};
 

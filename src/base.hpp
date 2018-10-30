@@ -5,7 +5,7 @@
 #include <algorithm>
 
 
-namespace Buckler {
+namespace buckler {
 class Target {
 public:
     std::vector<unsigned char> buffer;

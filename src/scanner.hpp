@@ -11,7 +11,7 @@
 #define SCANNER_LIST "./tests/data/scanner/scanner.list"
 
 
-namespace Buckler {
+namespace buckler {
 class Scanner {
 public:
     Target target;

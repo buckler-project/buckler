@@ -6,7 +6,7 @@
 #define SIGNATURE_PATH "./tests/data/signature/"
 
 
-namespace Buckler {
+namespace buckler {
 class RepositoryUpdator {
 private:
     std::string cmd;
