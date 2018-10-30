@@ -1,39 +1,49 @@
-#include "utils.hpp"
+#pragma once
+
+#include <vector>
+#include <iostream>
+
 
 template <typename T>
-inline void IteratableObject<T>::Start() {
-    itr = objects.begin();
-    is_continue = true;
-}
+class IteratableObject {
+public:
+    std::vector<T> objects;
+    typename std::vector<T>::iterator itr;
+    bool is_continue = false;
 
-template <typename T>
-inline T IteratableObject<T>::Next() {
-    if (!is_continue) {
-        return *(objects.end());
+    IteratableObject() {}
+
+    void Start() {
+        itr = objects.begin();
+        is_continue = true;
+    }
+    
+    T Next() {        
+        if (!is_continue) {
+            return *(objects.end());
+        }
+
+        if (objects.size() == 0) {
+            std::cerr 
+                << "failed to get element from vector " 
+                << "(vector has no elements)"
+                << std::endl;
+            
+            return *(objects.begin());
+        }
+
+        typename std::vector<T>::iterator result = itr;
+
+        itr ++;
+
+        if(itr == objects.end()) {
+            is_continue = false;
+        }
+
+        return *result;
     }
 
-    if (objects.size() == 0) {
-        std::cerr 
-            << "failed to get element from vector " 
-            << "(vector has no elements)"
-            << std::endl;
-        
-        return *(objects.begin());
+    void Add(T object) {
+        objects.push_back(object);
     }
-
-    typename std::vector<T>::iterator result = itr;
-
-    itr ++;
-
-    if(itr == objects.end()) {
-        is_continue = false;
-    }
-
-    return *result;
-}
-
-template <typename T>
-inline void IteratableObject<T>::Add(T object) {
-    objects.push_back(object);
 };
-

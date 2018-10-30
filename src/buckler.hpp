@@ -3,7 +3,6 @@
 #include "base.hpp"
 #include "signature.hpp"
 #include "scanner.hpp"
-#include "utils.hpp"
 #include "update.hpp"
 
 

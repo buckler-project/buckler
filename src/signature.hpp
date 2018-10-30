@@ -6,7 +6,7 @@
 #include <boost/filesystem.hpp>
 
 
-#include "utils.hpp"
+#include "utils.cc"
 
 
 #define SIGNATURE_DIRECTORY "./tests/data/signature/"

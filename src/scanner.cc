@@ -1,4 +1,5 @@
 #include "scanner.hpp"
+#include <dlfcn.h> 
 
 
 namespace Buckler {
