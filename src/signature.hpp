@@ -9,7 +9,7 @@
 #include "utils.cc"
 
 
-#define SIGNATURE_DIRECTORY "./tests/data/signature/"
+#define SIGNATURE_DIRECTORY "./data/signature/"
 
 
 namespace buckler {

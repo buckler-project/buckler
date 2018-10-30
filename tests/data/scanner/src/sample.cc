@@ -12,6 +12,7 @@ extern "C" {
             target += 1;
         }
         printf("\n");
+
         return true;
     }
 }

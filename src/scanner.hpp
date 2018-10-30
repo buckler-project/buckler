@@ -8,7 +8,7 @@
 
 #pragma once
 
-#define SCANNER_LIST "./tests/data/scanner/scanner.list"
+#define SCANNER_LIST "./data/scanner/data/scanner.list"
 
 
 namespace buckler {
