@@ -1,6 +1,7 @@
-#include <vector>
-
 #pragma once
+
+#include <vector>
+#include <iostream>
 
 
 template <typename T>
@@ -46,4 +47,3 @@ public:
         objects.push_back(object);
     }
 };
-
