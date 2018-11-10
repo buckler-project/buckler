@@ -16,7 +16,10 @@ public:
     ScannerController scanners;
     SignatureController signatures;
 
+    Buckler();
     Buckler(Target _target);
+    
+    void SetUp(Target _target);
 
     Result Scan();
 };
