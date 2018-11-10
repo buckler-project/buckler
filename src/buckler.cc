@@ -2,6 +2,8 @@
 
 
 namespace buckler {
+Buckler::Buckler() {}
+
 Buckler::Buckler(Target _target) {
     repo = RepositoryUpdator();
 
