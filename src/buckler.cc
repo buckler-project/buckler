@@ -2,15 +2,6 @@
 
 
 namespace buckler {
-Buckler::Buckler() {
-    repo = RepositoryUpdator();
-
-    target = Target();
-    result = Result();
-
-    signatures = SignatureController();
-    scanners = ScannerController(target);
-}
 
 Buckler::Buckler(Target _target) {
     repo = RepositoryUpdator();
