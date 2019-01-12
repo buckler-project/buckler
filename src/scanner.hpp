@@ -26,13 +26,13 @@ public:
 };
 
 
-class ScannerRepository : public IteratableObject<Scanner>{};
+class ScannerList : public IteratableObject<Scanner>{};
 
 
 class ScannerController {
 public:
     Target target;
-    ScannerRepository repository = ScannerRepository();
+    ScannerList list = ScannerList();
 
     ScannerController();
 

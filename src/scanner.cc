@@ -51,7 +51,7 @@ ScannerController::ScannerController(Target _target) {
 
 void ScannerController::AddFromPath(const std::string path) {
     Scanner scanner = Scanner(target, path);
-    repository.Add(scanner);
+    list.Add(scanner);
 }
 
 void ScannerController::AddFromFiles(const std::string path) {

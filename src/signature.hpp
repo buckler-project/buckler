@@ -23,11 +23,11 @@ public:
 };
 
 
-class SignatureRepository : public IteratableObject<Signature>{};
+class SignaturesList : public IteratableObject<Signature>{};
 
 class SignatureController {
 public:
-    SignatureRepository repository = SignatureRepository();
+    SignaturesList list = SignaturesList();
 
     SignatureController();
     void AddFromPath(const std::string path);

@@ -29,7 +29,7 @@ SignatureController::SignatureController() {
 
 void SignatureController::AddFromPath(const std::string path) {
     Signature signature = Signature(path);
-    repository.Add(signature);
+    list.Add(signature);
 }
 
 void SignatureController::AddFromDirectory(const std::string path) {
