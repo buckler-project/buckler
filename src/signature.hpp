@@ -4,12 +4,13 @@
 #include <fstream>
 
 #include <boost/filesystem.hpp>
+#include "yaml-cpp/yaml.h"
 
 
 #include "utils.cc"
 
 
-#define SIGNATURE_DIRECTORY "./data/signature/"
+#define SIGNATURE_DIRECTORY ".signatures/"
 
 
 namespace buckler {
