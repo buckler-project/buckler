@@ -66,6 +66,10 @@ public:
 
     Repository() {}
 
+    Repository(IteratableObject<T> *list) {
+        this -> list = list;
+    }
+
     Repository(IteratableObject<T> *list, std::string parent_path) {
         this -> list = list;
         this -> parent_path = parent_path;
@@ -78,7 +82,7 @@ public:
 
     void LoadAll(){
         namespace fs = boost::filesystem;
-
+    
         for (const auto& e : boost::make_iterator_range(fs::directory_iterator(parent_path), {})) {
             if (fs::is_directory(e)) {
                 std::string path = e.path().string();

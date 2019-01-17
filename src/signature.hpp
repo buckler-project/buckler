@@ -11,29 +11,36 @@
 
 
 #define SIGNATURE_DIRECTORY ".signatures/"
+#define SIGNATURE_CONFIG "signature.yml"
 
 
 namespace buckler {
 class Signature {
 public:
     std::string path;
-    std::vector<unsigned char> buffer;
+    IteratableObject<std::string> path_list = IteratableObject<std::string>();
     
     Signature(const std::string _path);
+    
+    std::vector<unsigned char> GetBuffer();
 };
 
 
-class SignaturesList : public IteratableObject<Signature>{};
+class SignaturesList : public IteratableObject<Signature> {};
 
-class SignatureController {
+class SignaturesRepository : public Repository<Signature> {
+public:
+    SignaturesRepository(SignaturesList *list);
+
+    Signature Load(YAML::Node config, std::string path);
+};
+
+
+class SignaturesController {
 public:
     SignaturesList list = SignaturesList();
+    SignaturesRepository repository = SignaturesRepository(&list);
 
-    SignatureController();
-    void AddFromPath(const std::string path);
-
-    void AddFromDirectory(const std::string path);
-
-    void AddFromDefaultDirectory();
+    SignaturesController();
 };
 }
