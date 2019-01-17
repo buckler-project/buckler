@@ -42,3 +42,4 @@ bin/*
 tests/bin/tests
 tests/bin/*
 tests/data/scanner/bin/*
+tmp/*

@@ -2,14 +2,14 @@ CC      = g++
 OBJSFX  = .o
 CFLAGS  = -g -Wall -std=c++17
 SFLAG   = -shared -fPIC
-LFLAGS  = -lgtest -lpthread -lboost_filesystem -lboost_system -ldl
-OBJDIR  = ../obj
-SOURCE  = ./src/tests.cc
+LFLAGS  = -lgtest -lgmock -lpthread -lboost_filesystem -lboost_system -lyaml-cpp -ldl
+OBJDIR  = ./obj
+SOURCE  = ./src/utils.cc ../src/base.cc ../src/utils.hpp
 OBJECT  = $(wildcard $(OBJDIR)/*$(OBJSFX))
-TARGET  = ./bin/tests
+TARGET  = ./bin/utils
 
-build:
-	$(CC) $(SOURCE) $(OBJECT) $(CFLAGS) $(LFLAGS) -o $(TARGET)
+utils:
+	$(CC) $(SOURCE) $(CFLAGS) $(LFLAGS) -o $(TARGET)
 
 run: $(TARGET)
 	$(TARGET)
