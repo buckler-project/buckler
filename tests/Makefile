@@ -1,21 +1,19 @@
-CC      = g++
-OBJSFX  = .o
-CFLAGS  = -g -Wall -std=c++17
-SFLAG   = -shared -fPIC
-LFLAGS  = -lgtest -lgmock -lpthread -lboost_filesystem -lboost_system -lyaml-cpp -ldl
-OBJDIR  = ./obj
-SOURCE  = ./src/utils.cc ../src/base.cc ../src/utils.hpp
-OBJECT  = $(wildcard $(OBJDIR)/*$(OBJSFX))
-TARGET  = ./bin/utils
+CC        = g++
+OBJSFX    = .o
+CFLAGS    = -g -Wall -std=c++17
+SFLAG     = -shared -fPIC
+LFLAGS    = -lgtest -lgmock -lpthread -lboost_filesystem -lboost_system -lyaml-cpp -ldl
+OBJDIR    = ./obj
+SIGNATURE = ./src/signature.cc ../src/base.cc ../src/signature.hpp
+UTILS     = ./src/utils.cc ../src/base.cc ../src/utils.hpp
+
+
+signatures:
+	$(CC) $(SIGNATURE) $(CFLAGS) $(LFLAGS) -o ./bin/signatures
 
 utils:
-	$(CC) $(SOURCE) $(CFLAGS) $(LFLAGS) -o $(TARGET)
-
-run: $(TARGET)
-	$(TARGET)
+	$(CC) $(UTILS) $(CFLAGS) $(LFLAGS) -o ./bin/utils
 
 clean:
-	rm -f $(TARGET) $(TRUE_TARGET) $(FALSE_TARGET) 
+	rm -f ./bin/*
 
-rebuild:
-	make clean && make build
