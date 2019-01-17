@@ -2,7 +2,14 @@
 
 
 namespace buckler {
+
+Buckler::Buckler() {};
+
 Buckler::Buckler(Target _target) {
+    SetUp(_target);
+}
+
+void Buckler::SetUp(Target _target) {
     repo = RepositoryUpdator();
 
     target = _target;

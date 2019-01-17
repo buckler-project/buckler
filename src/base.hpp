@@ -15,6 +15,10 @@ public:
     Target(std::vector<unsigned char> _buffer);
 
     Target(unsigned char* ptr, size_t size);
+
+    void SetBuffer(std::vector<unsigned char> _buffer);
+
+    void SetBuffer(unsigned char* ptr, size_t size);
 };
 
 

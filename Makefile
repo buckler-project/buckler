@@ -1,6 +1,5 @@
 CC      = g++
 CFLAGS  = -g -Wall -std=c++17 -fPIC
-LFLAGS  = -lpthread -lboost_filesystem -lboost_system
 SRCSFX  = .cc
 OBJSFX  = .o
 SRCDIR  = ./src
@@ -14,7 +13,7 @@ $(TARGET): $(OBJECTS)
 	ar r $(TARGET) $(OBJECTS) -o $(TARGET)
 
 $(OBJDIR)/%$(OBJSFX): $(SRCDIR)/%$(SRCSFX)
-	$(CC) $(CFLAGS) $(FLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 obj_clean:
 	-rm -f $(TARGET)
