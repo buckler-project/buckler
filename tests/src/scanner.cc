@@ -17,7 +17,7 @@ TEST_F(ScannersTest, Scanners) {
 
 TEST_F(ScannersTest, Path) {
     std::vector<std::string> vec = {
-        "./data/scanners/sample",
+        "./data/scanners/sample-scanner",
     };
 
     ScannersList list = ScannersList();
@@ -39,7 +39,7 @@ TEST_F(ScannersTest, Path) {
 }
 
 TEST_F(ScannersTest, LoadableFile) {
-    std::string expected = "./data/scanners/sample/bin/libsample.so";
+    std::string expected = "./data/scanners/sample-scanner/bin/libsample.so";
     ScannersList list = ScannersList();
     ScannersRepository repo = ScannersRepository(&list);
     
@@ -71,7 +71,7 @@ TEST_F(ScannersTest, ScanOne) {
     Target fizz_target = Target((unsigned char *)fizz, sizeof(fizz));
 
     Scanner scanner = Scanner();
-    scanner.loadable_file = "./data/scanners/sample/bin/libsample.so";
+    scanner.loadable_file = "./data/scanners/sample-scanner/bin/libsample.so";
     bool has_hit = scanner.ScanOne(fizz_target, fizz_vector);
     bool has_unhit = scanner.ScanOne(fizz_target, buzz_vector);
 
@@ -81,11 +81,11 @@ TEST_F(ScannersTest, ScanOne) {
 
 
 TEST_F(ScannersTest, Scan) {
-    Log expected_log("./data/scanners/sample", "./data/signatures/first", "./data/signatures/first/1.line");
+    Log expected_log("./data/scanners/sample-scanner", "./data/signatures/first", "./data/signatures/first/1.line");
 
     Scanner scanner = Scanner();
-    scanner.loadable_file = "./data/scanners/sample/bin/libsample.so";
-    scanner.path = "./data/scanners/sample";
+    scanner.loadable_file = "./data/scanners/sample-scanner/bin/libsample.so";
+    scanner.path = "./data/scanners/sample-scanner";
 
     char hit_char_ptr[] = "hello\nworld";
     char unhit_char_ptr[] = "hello\nworld!!";
