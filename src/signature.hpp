@@ -22,7 +22,7 @@ public:
     
     Signature(const std::string _path);
     
-    std::vector<unsigned char> GetBuffer();
+    std::vector<unsigned char> GetFileBuffer(std::string path);
 };
 
 
@@ -30,6 +30,7 @@ class SignaturesList : public IteratableObject<Signature> {};
 
 class SignaturesRepository : public Repository<Signature> {
 public:
+    SignaturesRepository() {};
     SignaturesRepository(SignaturesList *list);
 
     Signature Load(YAML::Node config, std::string path);
@@ -38,9 +39,10 @@ public:
 
 class SignaturesController {
 public:
-    SignaturesList list = SignaturesList();
-    SignaturesRepository repository = SignaturesRepository(&list);
+    SignaturesList list;
+    SignaturesRepository repository;
 
     SignaturesController();
+    void Load();
 };
 }
