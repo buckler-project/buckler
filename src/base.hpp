@@ -12,20 +12,26 @@ public:
 
     Target();
 
-    Target(std::vector<unsigned char> _buffer);
+    Target(std::vector<unsigned char> buffer);
 
     Target(unsigned char* ptr, size_t size);
-
-    void SetBuffer(std::vector<unsigned char> _buffer);
-
-    void SetBuffer(unsigned char* ptr, size_t size);
 };
 
+class Log {
+public:
+    std::string scanner;
+    std::string signature;
+    std::string signature_file;
+
+    Log() {}
+    Log(std::string scanner, std::string signature, std::string signature_file)
+        : scanner(scanner), signature(signature), signature_file(signature_file) {}
+};
 
 class Result {
 public:
-   bool is_hit;
-   std::map<std::string, std::string> hits;
+   bool has_hit = false;
+   std::vector<Log> hits = {};
 
    Result();
 };
