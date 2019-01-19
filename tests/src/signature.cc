@@ -37,7 +37,7 @@ TEST_F(SignaturesTest, Path) {
         std::cout << "path: " << path << std::endl;
         std::cout << "expected: " << *itr << std::endl;
         std::cout << std::endl;
-        EXPECT_EQ(*itr, path);
+        ASSERT_EQ(*itr, path);
     }
 
     std::cout << std::endl;
@@ -69,7 +69,7 @@ TEST_F(SignaturesTest, PathList) {
         std::cout << "path: " << path << std::endl;
         std::cout << "expected: " << *itr << std::endl;
         std::cout << std::endl;
-        EXPECT_EQ(*itr, path);
+        ASSERT_EQ(*itr, path);
     }
 
     std::cout << std::endl;
