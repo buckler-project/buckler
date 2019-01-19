@@ -22,8 +22,15 @@ public:
     IteratableObject() {}
 
     void Start() {
+        if (data.size() == 0) {
+            is_continue = false;
+            return;
+        
+        } else {
+            is_continue = true;
+        }
+
         itr = data.begin();
-        is_continue = true;
     }
     
     T Next() {
@@ -82,7 +89,7 @@ public:
 
     void LoadAll(){
         namespace fs = boost::filesystem;
-    
+
         for (const auto& e : boost::make_iterator_range(fs::directory_iterator(parent_path), {})) {
             if (fs::is_directory(e)) {
                 std::string path = e.path().string();
