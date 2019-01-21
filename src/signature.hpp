@@ -17,10 +17,11 @@
 namespace buckler {
 class Signature {
 public:
-    std::string path;
+    std::string path = "";
     IteratableObject<std::string> path_list = IteratableObject<std::string>();
     
-    Signature(const std::string _path);
+    Signature(){};
+    Signature(std::string path);
     
     std::vector<unsigned char> GetFileBuffer(std::string path);
 };
@@ -30,7 +31,7 @@ class SignaturesList : public IteratableObject<Signature> {};
 
 class SignaturesRepository : public Repository<Signature> {
 public:
-    SignaturesRepository() {};
+    SignaturesRepository() {}
     SignaturesRepository(SignaturesList *list);
 
     Signature Load(YAML::Node config, std::string path);

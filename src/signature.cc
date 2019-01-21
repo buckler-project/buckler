@@ -5,7 +5,7 @@
 
 namespace buckler {
 
-Signature::Signature(const std::string path) : path(path) {}
+Signature::Signature(std::string path) : path(path) {}
 
 SignaturesRepository::SignaturesRepository(SignaturesList *list) : Repository(list) {
     parent_path = std::string(SIGNATURE_DIRECTORY);
@@ -23,7 +23,6 @@ Signature SignaturesRepository::Load(YAML::Node config, std::string path) {
         
         signature.path_list.Add(itr -> path().string());
     }
-
     return signature;
 }    
 
@@ -50,7 +49,6 @@ std::vector<unsigned char> Signature::GetFileBuffer(std::string path) {
 
     return buffer;
 }
-
 
 SignaturesController::SignaturesController() {
     list = SignaturesList();
