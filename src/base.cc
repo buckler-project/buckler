@@ -13,5 +13,11 @@ Target::Target(unsigned char* ptr, size_t size) {
     }
 }
 
-Result::Result() {}
+Result::Result() {
+}
+
+void Result::Include(Result result) {
+    has_hit = has_hit | result.has_hit;
+    hits.insert(hits.end(), result.hits.begin(), result.hits.end());
+}
 }

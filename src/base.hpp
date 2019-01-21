@@ -34,5 +34,6 @@ public:
    std::vector<Log> hits = {};
 
    Result();
+   void Include(Result result);
 };
 }
