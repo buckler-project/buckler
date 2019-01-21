@@ -45,5 +45,7 @@ public:
 
     ScannerController();
     ScannerController(Target target);
+
+    void Load();
 };
 }

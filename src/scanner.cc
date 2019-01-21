@@ -67,6 +67,7 @@ ScannersRepository::ScannersRepository(ScannersList *list) : Repository(list) {
 Scanner ScannersRepository::Load(YAML::Node config, std::string path) {
     Scanner scanner = Scanner(path);
     scanner.loadable_file = scanner.path + "/" + config["loadable"].as<std::string>();
+
     return scanner;
 }
 
@@ -74,4 +75,7 @@ ScannerController::ScannerController() {}
 
 ScannerController::ScannerController(Target target) : target(target) {}
 
+void ScannerController::Load() {
+    repository.LoadAll();
+}
 }
