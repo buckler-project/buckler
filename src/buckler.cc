@@ -5,49 +5,33 @@ namespace buckler {
 
 Buckler::Buckler() {};
 
-Buckler::Buckler(Target _target) {
-    SetUp(_target);
+Buckler::Buckler(Target target) : target(target) {
+    result = Result();
 }
 
-void Buckler::SetUp(Target _target) {
-    repo = RepositoryUpdator();
-
-    target = _target;
-    result = Result();
-
-    signatures = SignatureController();
-    scanners = ScannerController(target);
+void Buckler::Load() {
+    signatures.Load();
+    scanners.Load();
 }
 
 Result Buckler::Scan() {
-    scanners.repository.Start();
+    Result result = Result();
+    scanners.list.Start();
 
-    while(scanners.repository.is_continue) {
-        Scanner scanner = scanners.repository.Next();
+    while(scanners.list.is_continue) {
+        Scanner scanner = scanners.list.Next();
+
+        signatures.list.Start();
+        while(signatures.list.is_continue) {
+            Signature signature = signatures.list.Next();
         
-        signatures.repository.Start();
-        while(signatures.repository.is_continue) {
-            Signature signature = signatures.repository.Next();
-            bool tmp = scanner.Scan(signature);
+            Result _result = scanner.Scan(target, signature);
 
-            if(tmp) {
-                result.hits.emplace(signature.path, scanner.path);                    
+            if(_result.has_hit) {
+                result.Include(_result);
             }
-
-            result.is_hit |= tmp; 
         }
-    }
-    
+    }    
     return result;
 }
 }
-
-/*
-int main() {
-    unsigned char hoge[] = "hogehoge";
-    Buckler::Target target = Buckler::Target((unsigned char *)hoge, sizeof(hoge));
-    
-    Buckler::Buckler buckler = Buckler::Buckler(target);
-    buckler.repo.Update();
-}
-*/

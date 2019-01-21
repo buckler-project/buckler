@@ -11,15 +11,14 @@ class Buckler {
 public:
     Target target;
     Result result;
-    RepositoryUpdator repo;
 
     ScannerController scanners;
-    SignatureController signatures;
+    SignaturesController signatures;
 
     Buckler();
-    Buckler(Target _target);
+    Buckler(Target target);
     
-    void SetUp(Target _target);
+    void Load();
 
     Result Scan();
 };
