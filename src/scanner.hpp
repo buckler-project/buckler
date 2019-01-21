@@ -8,38 +8,44 @@
 
 #pragma once
 
-#define SCANNER_LIST "./data/scanner/data/scanner.list"
-
+#define SCANNER_DIRECTORY ".scanners/"
+#define SCANNER_CONFIG "scanner.yml"
 
 namespace buckler {
 class Scanner {
 public:
-    Target target;
     std::string path;
+    std::string loadable_file;
     void *handler = NULL;
 
     Scanner();
 
-    Scanner(Target _target, const std::string _path);
+    Scanner(const std::string path);
 
-    bool Scan(Signature signature);
+    bool ScanOne(Target target, std::vector<unsigned char> signature);
+
+    Result Scan(Target target, Signature signature);
+
 };
 
+class ScannersList : public IteratableObject<Scanner> {};
 
-class ScannerRepository : public IteratableObject<Scanner>{};
+class ScannersRepository : public Repository<Scanner> {
+public:
+    ScannersRepository(ScannersList *list);
 
+    Scanner Load(YAML::Node config, std::string path);
+};
 
 class ScannerController {
 public:
     Target target;
-    ScannerRepository repository = ScannerRepository();
+    ScannersList list = ScannersList();
+    ScannersRepository repository = ScannersRepository(&list);
 
     ScannerController();
+    ScannerController(Target target);
 
-    ScannerController(Target _target);
-    
-    void AddFromPath(const std::string path);
-
-    void AddFromFiles(const std::string path);
+    void Load();
 };
 }

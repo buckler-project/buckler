@@ -4,35 +4,46 @@
 #include <fstream>
 
 #include <boost/filesystem.hpp>
+#include "yaml-cpp/yaml.h"
 
 
 #include "utils.cc"
 
 
-#define SIGNATURE_DIRECTORY "./data/signature/"
+#define SIGNATURE_DIRECTORY ".signatures/"
+#define SIGNATURE_CONFIG "signature.yml"
 
 
 namespace buckler {
 class Signature {
 public:
-    std::string path;
-    std::vector<unsigned char> buffer;
+    std::string path = "";
+    IteratableObject<std::string> path_list = IteratableObject<std::string>();
     
-    Signature(const std::string _path);
+    Signature(){};
+    Signature(std::string path);
+    
+    std::vector<unsigned char> GetFileBuffer(std::string path);
 };
 
 
-class SignatureRepository : public IteratableObject<Signature>{};
+class SignaturesList : public IteratableObject<Signature> {};
 
-class SignatureController {
+class SignaturesRepository : public Repository<Signature> {
 public:
-    SignatureRepository repository = SignatureRepository();
+    SignaturesRepository() {}
+    SignaturesRepository(SignaturesList *list);
 
-    SignatureController();
-    void AddFromPath(const std::string path);
+    Signature Load(YAML::Node config, std::string path);
+};
 
-    void AddFromDirectory(const std::string path);
 
-    void AddFromDefaultDirectory();
+class SignaturesController {
+public:
+    SignaturesList list;
+    SignaturesRepository repository;
+
+    SignaturesController();
+    void Load();
 };
 }
