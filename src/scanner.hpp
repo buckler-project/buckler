@@ -8,6 +8,7 @@
 
 #pragma once
 
+#define SCANNER_TYPE "scanner"
 #define SCANNER_DIRECTORY ".scanners/"
 #define SCANNER_CONFIG "scanner.yml"
 

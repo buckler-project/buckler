@@ -21,8 +21,9 @@ class TestRepository : public Repository<std::string> {
 public:
     TestRepository(TestList *list, std::string parent_path) 
         : Repository(list, parent_path) {
-            parent_path = std::string(SIGNATURE_DIRECTORY);
-            config_name = std::string("signature.yml");
+            parent_path = SIGNATURE_DIRECTORY;
+            config_path = "signature.yml";
+            type = "signature";
         }
 
     std::string Load(YAML::Node config, std::string path) {
@@ -47,8 +48,8 @@ TEST_F(UtilsTest, LoadAll) {
     std::cout << std::endl;
 
     ASSERT_THAT(list.data, testing::ElementsAre<std::string> (
-            std::string("./data/signatures/second"),
-            std::string("./data/signatures/first")
+            std::string("./data/signatures/buckler-project/first"),
+            std::string("./data/signatures/buckler-project/second")
         )
     );
 }

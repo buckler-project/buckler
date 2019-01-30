@@ -17,8 +17,8 @@ TEST_F(SignaturesTest, Signatures) {
 
 TEST_F(SignaturesTest, Path) {
     std::vector<std::string> vec = {
-        "./data/signatures/second",
-        "./data/signatures/first"
+        "./data/signatures/buckler-project/first",
+        "./data/signatures/buckler-project/second"
     };
 
     SignaturesList list = SignaturesList();
@@ -45,8 +45,7 @@ TEST_F(SignaturesTest, Path) {
 
 TEST_F(SignaturesTest, PathList) {
     std::vector<std::string> vec = {
-        "./data/signatures/second/2.line",
-        "./data/signatures/second/3.line"
+        "./data/signatures/buckler-project/first/1.line"
     };
 
     SignaturesList list = SignaturesList();
@@ -77,8 +76,8 @@ TEST_F(SignaturesTest, PathList) {
 
 TEST_F(SignaturesTest, Contoller) {
     std::vector<std::string> vec = {
-        "./data/signatures/second",
-        "./data/signatures/first"
+        "./data/signatures/buckler-project/first",
+        "./data/signatures/buckler-project/second"
     };
 
     SignaturesController controller = SignaturesController();

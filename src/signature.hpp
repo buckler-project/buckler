@@ -10,6 +10,7 @@
 #include "utils.cc"
 
 
+#define SIGNATURE_TYPE "signature"
 #define SIGNATURE_DIRECTORY ".signatures/"
 #define SIGNATURE_CONFIG "signature.yml"
 
@@ -31,6 +32,7 @@ class SignaturesList : public IteratableObject<Signature> {};
 
 class SignaturesRepository : public Repository<Signature> {
 public:
+
     SignaturesRepository() {}
     SignaturesRepository(SignaturesList *list);
 

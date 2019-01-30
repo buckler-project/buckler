@@ -9,7 +9,7 @@ using namespace buckler;
 class BucklerTest : public ::testing::Test {};
 
 TEST_F(BucklerTest, Scan) {
-    Log expected_log("./data/scanners/sample-scanner", "./data/signatures/first", "./data/signatures/first/1.line");
+    Log expected_log("./data/scanners/buckler-project/sample-scanner", "./data/signatures/buckler-project/first", "./data/signatures/buckler-project/first/1.line");
     
     char _target[] = "hello\nworld";
     Target target = Target((unsigned char *)_target, sizeof(_target));
