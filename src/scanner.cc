@@ -60,13 +60,15 @@ Result Scanner::Scan(Target target, Signature signature) {
 }
 
 ScannersRepository::ScannersRepository(ScannersList *list) : Repository(list) {
-    parent_path = std::string(SCANNER_DIRECTORY);
-    config_name = std::string(SCANNER_CONFIG);
+    type = SCANNER_TYPE;
+    config_path = SCANNER_CONFIG;
+    parent_path = SCANNER_DIRECTORY;
 }
 
 Scanner ScannersRepository::Load(YAML::Node config, std::string path) {
     Scanner scanner = Scanner(path);
-    scanner.loadable_file = scanner.path + "/" + config["loadable"].as<std::string>();
+    std::cout << path << std::endl;
+    scanner.loadable_file = scanner.path + "/" + config["path"].as<std::string>();
 
     return scanner;
 }

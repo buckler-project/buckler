@@ -10,6 +10,8 @@
 
 #include "yaml-cpp/yaml.h"
 
+#define MAIN_CONFIG "./buckler.yml"
+
 
 namespace buckler {
 template <class T>
@@ -20,7 +22,7 @@ public:
     bool is_continue = false;
 
     IteratableObject() {}
-
+    
     void Start() {
         if (data.size() == 0) {
             is_continue = false;
@@ -67,8 +69,9 @@ public:
 template <class T>
 class Repository {
 public:
+    std::string type;
     std::string parent_path;
-    std::string config_name;
+    std::string config_path;
     IteratableObject<T> *list;
 
     Repository() {}
@@ -90,16 +93,20 @@ public:
     void LoadAll(){
         namespace fs = boost::filesystem;
 
-        for (const auto& e : boost::make_iterator_range(fs::directory_iterator(parent_path), {})) {
-            if (fs::is_directory(e)) {
-                std::string path = e.path().string();
-                std::string config_path = path + "/" + config_name;
+        std::string main_config = MAIN_CONFIG;
+        YAML::Node config = YAML::LoadFile("./buckler.yml");
 
-                YAML::Node config = YAML::LoadFile(config_path);
-                T object = Load(config, path);
-                list->Add(object);
-            }
+        std::vector<std::string> vec = config[type + "s"].as<std::vector<std::string>>();
+
+        for(auto itr = vec.begin(); itr != vec.end(); ++itr) {
+            std::string path = parent_path + "/" + *itr;
+            std::string _config_path = path + "/" + config_path;
+
+            YAML::Node config = YAML::LoadFile(_config_path);
+            T object = Load(config, path);
+            list->Add(object);
         }
     }
 };
 }
+

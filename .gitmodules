@@ -1,3 +1,6 @@
 [submodule "tests/data/scanners/sample-scanner"]
 	path = tests/data/scanners/sample-scanner
 	url = https://github.com/buckler-project/sample-scanner
+[submodule "tests/tests/data/scanners/buckler-project/sample-scanner"]
+	path = tests/tests/data/scanners/buckler-project/sample-scanner
+	url = https://github.com/buckler-project/sample-scanner

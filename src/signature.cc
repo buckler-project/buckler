@@ -8,8 +8,9 @@ namespace buckler {
 Signature::Signature(std::string path) : path(path) {}
 
 SignaturesRepository::SignaturesRepository(SignaturesList *list) : Repository(list) {
-    parent_path = std::string(SIGNATURE_DIRECTORY);
-    config_name = std::string(SIGNATURE_CONFIG);
+    type = SIGNATURE_TYPE;
+    config_path = SIGNATURE_CONFIG;
+    parent_path = SIGNATURE_DIRECTORY;
 }
 
 Signature SignaturesRepository::Load(YAML::Node config, std::string path) {
@@ -19,7 +20,7 @@ Signature SignaturesRepository::Load(YAML::Node config, std::string path) {
     fs::recursive_directory_iterator last;
     
     for (fs::recursive_directory_iterator itr(path); itr != last; ++itr) {
-        if (itr -> path().filename().string() == config_name) continue;
+        if (itr -> path().filename().string() == config_path) continue;
         
         signature.path_list.Add(itr -> path().string());
     }

@@ -1,0 +1,5 @@
+scanners: 
+  - buckler-project/sample-scanner
+signatures:
+  - buckler-project/first
+  - buckler-project/second
