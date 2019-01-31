@@ -15,8 +15,9 @@
 namespace buckler {
 class Scanner {
 public:
-    std::string path;
-    std::string loadable_file;
+    std::string name = "";
+    std::string path = "";
+    std::string loadable_file = "";
     void *handler = NULL;
 
     Scanner();
@@ -35,7 +36,7 @@ class ScannersRepository : public Repository<Scanner> {
 public:
     ScannersRepository(ScannersList *list);
 
-    Scanner Load(YAML::Node config, std::string path);
+    Scanner Load(YAML::Node config, std::string name, std::string path);
 };
 
 class ScannerController {

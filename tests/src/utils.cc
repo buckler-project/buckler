@@ -26,7 +26,7 @@ public:
             type = "signature";
         }
 
-    std::string Load(YAML::Node config, std::string path) {
+    std::string Load(YAML::Node config, std::string name, std::string path) {
         return path;
     }
 };

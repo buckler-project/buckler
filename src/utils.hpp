@@ -85,7 +85,7 @@ public:
         this -> parent_path = parent_path;
     }
 
-    virtual T Load(YAML::Node config, std::string path) {
+    virtual T Load(YAML::Node config, std::string name, std::string path) {
         std::cerr << "[err] not defined load." << std::endl;
         return (T)0;
     }
@@ -99,11 +99,12 @@ public:
         std::vector<std::string> vec = config[type + "s"].as<std::vector<std::string>>();
 
         for(auto itr = vec.begin(); itr != vec.end(); ++itr) {
-            std::string path = parent_path + "/" + *itr;
+            std::string name = *itr;
+            std::string path = parent_path + "/" + name;
             std::string _config_path = path + "/" + config_path;
 
             YAML::Node config = YAML::LoadFile(_config_path);
-            T object = Load(config, path);
+            T object = Load(config, name, path);
             list->Add(object);
         }
     }

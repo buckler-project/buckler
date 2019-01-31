@@ -86,6 +86,7 @@ TEST_F(ScannersTest, Scan) {
     Scanner scanner = Scanner();
     scanner.loadable_file = "./data/scanners/buckler-project/sample-scanner/bin/libsample.so";
     scanner.path = "./data/scanners/buckler-project/sample-scanner";
+    scanner.name = "buckler-project/sample-scanner";
 
     char hit_char_ptr[] = "hello\nworld";
     char unhit_char_ptr[] = "hello\nworld!!";
