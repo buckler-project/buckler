@@ -13,9 +13,12 @@ SignaturesRepository::SignaturesRepository(SignaturesList *list) : Repository(li
     parent_path = SIGNATURE_DIRECTORY;
 }
 
-Signature SignaturesRepository::Load(YAML::Node config, std::string path) {
+Signature SignaturesRepository::Load(YAML::Node config, std::string name, std::string path) {
     Signature signature = Signature(path);
     
+    signature.name = name;    
+    signature.support_scanner = config["scanner"].as<std::string>();
+
     namespace fs = boost::filesystem;
     fs::recursive_directory_iterator last;
     

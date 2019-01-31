@@ -40,6 +40,10 @@ bool Scanner::ScanOne(Target target, std::vector<unsigned char> signature) {
 Result Scanner::Scan(Target target, Signature signature) {
     Result result = Result();
     
+    if (signature.support_scanner != name) {
+        return result;
+    }
+    
     namespace fs = boost::filesystem;
     fs::recursive_directory_iterator last;
 
@@ -65,9 +69,9 @@ ScannersRepository::ScannersRepository(ScannersList *list) : Repository(list) {
     parent_path = SCANNER_DIRECTORY;
 }
 
-Scanner ScannersRepository::Load(YAML::Node config, std::string path) {
+Scanner ScannersRepository::Load(YAML::Node config, std::string name, std::string path) {
     Scanner scanner = Scanner(path);
-    std::cout << path << std::endl;
+    scanner.name = name;
     scanner.loadable_file = scanner.path + "/" + config["path"].as<std::string>();
 
     return scanner;
