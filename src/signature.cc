@@ -25,8 +25,6 @@ Signature SignaturesRepository::Load(YAML::Node config, std::string name, std::s
     
     for (fs::recursive_directory_iterator itr(path + "/" + signature.data_path); itr != last; ++itr) {
         if (itr -> path().filename().string() == config_path) continue;
-        
-        std::cout << path << std::endl;
         signature.path_list.Add(itr -> path().string());
     }
     return signature;
