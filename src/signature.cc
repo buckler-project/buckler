@@ -18,13 +18,15 @@ Signature SignaturesRepository::Load(YAML::Node config, std::string name, std::s
     
     signature.name = name;    
     signature.support_scanner = config["scanner"].as<std::string>();
+    signature.data_path = config["data"].as<std::string>();
 
     namespace fs = boost::filesystem;
     fs::recursive_directory_iterator last;
     
-    for (fs::recursive_directory_iterator itr(path); itr != last; ++itr) {
+    for (fs::recursive_directory_iterator itr(path + "/" + signature.data_path); itr != last; ++itr) {
         if (itr -> path().filename().string() == config_path) continue;
         
+        std::cout << path << std::endl;
         signature.path_list.Add(itr -> path().string());
     }
     return signature;

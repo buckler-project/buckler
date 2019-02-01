@@ -4,10 +4,10 @@ CFLAGS    = -g -Wall -std=c++17
 SFLAG     = -shared -fPIC
 LFLAGS    = -lgtest -lgmock -lpthread -lboost_filesystem -lboost_system -lyaml-cpp -ldl
 OBJDIR    = ./obj
-BUCKLER   = ./src/buckler.cc ../src/*
-SIGNATURE = ./src/signature.cc ../src/base.cc ../src/signature.hpp
-SCANNER   = ./src/scanner.cc ../src/base.cc ../src/signature.cc ../src/scanner.cc
-UTILS     = ./src/utils.cc ../src/base.cc ../src/utils.hpp
+BUCKLER   = ./src/buckler.cc ../obj/*
+SIGNATURE = ./src/signature.cc ../obj/base.o ../obj/signature.o
+SCANNER   = ./src/scanner.cc ../obj/base.o ../obj/signature.o ../obj/scanner.o
+UTILS     = ./src/utils.cc ../obj/base.o ../obj/utils.o
 
 buckler:
 	$(CC) $(BUCKLER) $(CFLAGS) $(LFLAGS) -o ./bin/buckler
