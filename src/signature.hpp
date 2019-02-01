@@ -20,6 +20,7 @@ class Signature {
 public:
     std::string name = "";
     std::string path = "";
+    std::string data_path = "";
     std::string support_scanner = "";
     IteratableObject<std::string> path_list = IteratableObject<std::string>();
     

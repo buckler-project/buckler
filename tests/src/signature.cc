@@ -5,7 +5,8 @@
 
 
 #include "../../src/base.hpp"
-#include "../../src/signature.cc"
+#include "../../src/signature.hpp"
+
 
 using namespace buckler;
 
@@ -45,7 +46,7 @@ TEST_F(SignaturesTest, Path) {
 
 TEST_F(SignaturesTest, PathList) {
     std::vector<std::string> vec = {
-        "./data/signatures/buckler-project/first/1.line"
+        "./data/signatures/buckler-project/first/data/1.line"
     };
 
     SignaturesList list = SignaturesList();
