@@ -11,8 +11,12 @@ bool Scanner::ScanOne(Target target, std::vector<unsigned char> signature) {
     handler = dlopen(loadable_file.c_str(), RTLD_LAZY);
 
     if (!handler) {
+        std::cerr << "[err] loading `"
+            << loadable_file
+            << "` failed."
+            << std::endl;
         std::cerr << dlerror() << std::endl;
-        handler = NULL;
+        std::exit(1);
     }
 
     int (*scan)(unsigned char *, size_t, unsigned char *, size_t) = 
@@ -20,18 +24,24 @@ bool Scanner::ScanOne(Target target, std::vector<unsigned char> signature) {
 
     char *error_msg = dlerror();
     if (error_msg) {
+        std::cerr << "[err] loading `scan` failed." << std::endl;
         std::cerr << error_msg << std::endl;
         
         dlclose(handler);
-        handler = NULL;
+        std::exit(1);
     }
 
     unsigned char *target_ptr = target.buffer.data();
     size_t target_size = target.buffer.size();
     unsigned char *signature_ptr = signature.data();
     size_t signature_size = signature.size();
-    bool result = (*scan)(target_ptr, target_size, signature_ptr, signature_size);
-    
+
+    bool result;
+    try {
+        result = (*scan)(target_ptr, target_size, signature_ptr, signature_size);
+    } catch(std::exception e) {
+        std::cerr << "[err] scanner running failed." << std::endl;
+    }
     dlclose(handler);
 
     return result;
