@@ -81,7 +81,7 @@ TEST_F(ScannersTest, ScanOne) {
 
 
 TEST_F(ScannersTest, Scan) {
-    Log expected_log("./data/scanners/buckler-project/sample-scanner", "./data/signatures/buckler-project/first", "./data/signatures/buckler-project/first/1.line");
+    Log expected_log("./data/scanners/buckler-project/sample-scanner", "./data/signatures/buckler-project/first", "./data/signatures/buckler-project/first/data/1.line");
 
     Scanner scanner = Scanner();
     scanner.loadable_file = "./data/scanners/buckler-project/sample-scanner/bin/libsample.so";
