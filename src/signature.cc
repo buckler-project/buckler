@@ -1,6 +1,6 @@
 #include "signature.hpp"
 #include <vector>
-
+#include <exception> 
 
 
 namespace buckler {
@@ -17,16 +17,41 @@ Signature SignaturesRepository::Load(YAML::Node config, std::string name, std::s
     Signature signature = Signature(path);
     
     signature.name = name;    
-    signature.support_scanner = config["scanner"].as<std::string>();
-    signature.data_path = config["data"].as<std::string>();
+
+    try {
+        signature.support_scanner = config["scanner"].as<std::string>();
+    } catch(std::exception e){ 
+        std::cerr << "[err] Can't read `scanner` on `"
+            << name
+            << "` ." << std::endl;
+        std::exit(1);
+    }
+    
+    try {
+        signature.data_path = config["data"].as<std::string>();
+    } catch(std::exception e){
+        std::cerr << "[err] Can't read `scanners` on`" 
+            << name
+            << "`."
+            << std::endl;
+        std::exit(1);
+    }
 
     namespace fs = boost::filesystem;
     fs::recursive_directory_iterator last;
     
-    for (fs::recursive_directory_iterator itr(path + "/" + signature.data_path); itr != last; ++itr) {
-        if (itr -> path().filename().string() == config_path) continue;
-        signature.path_list.Add(itr -> path().string());
+    try {
+        for (fs::recursive_directory_iterator itr(path + "/" + signature.data_path); itr != last; ++itr) {
+            if (itr -> path().filename().string() == config_path) continue;
+            signature.path_list.Add(itr -> path().string());
+        }
+    } catch (std::exception e){
+        std::cerr << "[err] Can't read signature files in `"
+            << path + "/" + signature.data_path + "`."
+            << std::endl;
+        std::exit(1);
     }
+
     return signature;
 }    
 
@@ -40,7 +65,7 @@ std::vector<unsigned char> Signature::GetFileBuffer(std::string path) {
 
     if (fs.fail()) {
         std::cerr << "failed to open file\n" << std::endl;
-        return {};
+        std::exit(1);
     }
 
     while(!fs.eof()){

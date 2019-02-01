@@ -1,6 +1,6 @@
 #include "scanner.hpp"
 #include <dlfcn.h> 
-
+#include <exception>
 
 namespace buckler {
 Scanner::Scanner() {}
@@ -72,7 +72,15 @@ ScannersRepository::ScannersRepository(ScannersList *list) : Repository(list) {
 Scanner ScannersRepository::Load(YAML::Node config, std::string name, std::string path) {
     Scanner scanner = Scanner(path);
     scanner.name = name;
-    scanner.loadable_file = scanner.path + "/" + config["path"].as<std::string>();
+    try {
+        scanner.loadable_file = scanner.path + "/" + config["path"].as<std::string>();
+    } catch (std::exception e){
+        std::cerr << "[err] Can't read `path` on`" 
+            << name
+            << "`."
+            << std::endl;
+        std::exit(1);
+    }
 
     return scanner;
 }

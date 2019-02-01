@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <iostream>
+#include <cstdlib>
+#include <exception> 
 
 #include <boost/filesystem.hpp>
 #include <boost/foreach.hpp>
@@ -94,16 +96,43 @@ public:
         namespace fs = boost::filesystem;
 
         std::string main_config = MAIN_CONFIG;
-        YAML::Node config = YAML::LoadFile("./buckler.yml");
+        
+        YAML::Node config;
+        try {
+            config = YAML::LoadFile("./buckler.yml");
+        } catch(std::exception e){
+            std::cerr << "[err] Can't read `buckler.yml`." << std::endl;
+            std::exit(1);
+        }
 
-        std::vector<std::string> vec = config[type + "s"].as<std::vector<std::string>>();
+        std::vector<std::string> vec;
+        try {
+            vec = config[type + "s"].as<std::vector<std::string>>();
+        } catch(std::exception e){
+            std::cerr << "[err] Can't read `"
+                << type + "s"
+                << "` in `buckler.yml`."
+                << std::endl;
+            std::exit(1);
+        }
 
         for(auto itr = vec.begin(); itr != vec.end(); ++itr) {
             std::string name = *itr;
             std::string path = parent_path + "/" + name;
             std::string _config_path = path + "/" + config_path;
 
-            YAML::Node config = YAML::LoadFile(_config_path);
+            YAML::Node config;
+            try {
+                config = YAML::LoadFile(_config_path);
+
+            } catch(std::exception e){
+                std::cerr << "[err] Can't read `" 
+                    << _config_path
+                    << "`."
+                    << std::endl;
+                std::exit(1);
+            }
+
             T object = Load(config, name, path);
             list->Add(object);
         }
