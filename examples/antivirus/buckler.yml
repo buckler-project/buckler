@@ -1,0 +1,4 @@
+scanners:
+  - buckler-project/md5-scanner
+signatures:
+  - buckler-project/sample-signature
