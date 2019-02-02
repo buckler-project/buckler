@@ -1,8 +1,9 @@
 # buckler
 
 The framework for malice blocker.  
+
 Malice blocker block malicious data, file or packet.  
-For example, antivirus and WAF are malice blocker.  
+(For example, antivirus and WAF are malice blocker.  )
 
 ## Getting Started
 
@@ -11,7 +12,7 @@ Please install them before install buckler.
 
 * boost
 * yaml-cpp
-* [armoury](https://github.com/buckler-project/armoury)
+* [armoury(Package manager for buckler)](https://github.com/buckler-project/armoury)
 
 And now, it support only Linux.  
 (it will support Windows for the future.)
@@ -99,7 +100,7 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-And build it with `g++`.
+And build it.
 ```sh
 g++ -lpthread -lboost_system -lboost_filesystem -lyaml-cpp -ldl -lbuckler -g -Wall -std=c++17 -fPIC ./antivirus.cc -o ./antivirus 
 ```
