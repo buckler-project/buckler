@@ -10,16 +10,15 @@ SOURCES  = $(wildcard $(SRCDIR)/*$(SRCSFX))
 OBJECTS  = $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:$(SRCSFX)=$(OBJSFX))))
 HEADERS  = $(wildcard $(SRCDIR)/*$(HDRSFX)) ./src/utils.cc
 TARGET   = ./bin/libbuckler.so
-LIB_PATH = /usr/lib
+LIB_PATH = /usr/lib/libbuckler.so
 HDR_PATH = /usr/include/buckler
 
 $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) $(CFLAGS) -shared -o $(TARGET)
 
 install:
-	cp $(TARGET) $(LIB_PATH) \
-	&& mkdir $(HDR_PATH) \
-	&& cp -r $(HEADERS) $(HDR_PATH)
+	install $(TARGET) $(LIB_PATH)\
+	&& install -D -t $(HDR_PATH) $(HEADERS)
 
 $(OBJDIR)/%$(OBJSFX): $(SRCDIR)/%$(SRCSFX)
 	$(CC) $(CFLAGS) -o $@ -c $<
